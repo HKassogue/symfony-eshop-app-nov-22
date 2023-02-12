@@ -2,11 +2,19 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Alert;
 use App\Entity\Arrival;
 use App\Entity\ArrivalDetails;
 use App\Entity\Category;
+use App\Entity\Coupon;
+use App\Entity\CouponType;
 use App\Entity\Customer;
+use App\Entity\Delivery;
+use App\Entity\Faq;
 use App\Entity\Like;
+use App\Entity\Order;
+use App\Entity\OrderDetails;
+use App\Entity\Payment;
 use App\Entity\Photo;
 use App\Entity\Product;
 use App\Entity\Review;
@@ -68,5 +76,16 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Reviews', 'fas fa-list', Review::class);
         yield MenuItem::linkToCrud('Arrivals', 'fas fa-list', Arrival::class);
         yield MenuItem::linkToCrud('Arrivals details', 'fas fa-list', ArrivalDetails::class);
+
+        yield MenuItem::linkToCrud('Orders', 'fas fa-list', Order::class);
+        yield MenuItem::linkToCrud('Order details', 'fas fa-list', OrderDetails::class);
+        yield MenuItem::linkToCrud('Payments', 'fas fa-list', Payment::class);
+        yield MenuItem::linkToCrud('Deliveries', 'fas fa-list', Delivery::class);
+
+        yield MenuItem::linkToCrud('Coupons', 'fas fa-list', Coupon::class);
+        yield MenuItem::linkToCrud('Coupon types', 'fas fa-list', CouponType::class);
+
+        yield MenuItem::linkToCrud('Alerts', 'fas fa-list', Alert::class);
+        yield MenuItem::linkToCrud('FAQs', 'fas fa-list', Faq::class);
     }
 }
