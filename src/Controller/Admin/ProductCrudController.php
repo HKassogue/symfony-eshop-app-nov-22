@@ -47,9 +47,9 @@ class ProductCrudController extends AbstractCrudController
             TextField::new('name'),
             SlugField::new('slug')->setTargetFieldName('name')->hideOnIndex(),  
             MoneyField::new('price')->setCurrency('XOF'),
-            AssociationField::new('category')->setQueryBuilder(function (QueryBuilder $queryBuilder){
+            AssociationField::new('category')/*->setQueryBuilder(function (QueryBuilder $queryBuilder){
                  $queryBuilder->where('entity.active = true');
-            })->autocomplete(), 
+            })*/->autocomplete(), 
             IntegerField::new('stock'),
             BooleanField::new('active'),
             TextareaField::new('description')->hideOnIndex(),
