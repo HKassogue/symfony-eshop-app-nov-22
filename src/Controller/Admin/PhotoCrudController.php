@@ -37,6 +37,6 @@ class PhotoCrudController extends AbstractCrudController
     {
         if(!$entityInstance instanceof Photo) return;
         if(!$entityInstance->getCreatedAt()) $entityInstance->setCreatedAt(new \DateTimeImmutable);
-        parent::persistEntity($entityManager, $entityInstance);
+        Parent::persistEntity($entityManager, $entityInstance);
     }
 }
