@@ -108,4 +108,8 @@ class Review
 
         return $this;
     }
+    public function getDate()
+    {
+        return $this->created_at->format("M d Y");
+    }
 }
