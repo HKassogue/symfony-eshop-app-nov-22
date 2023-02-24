@@ -59,11 +59,16 @@ class DetailsController extends AbstractController
             }
         }
 
+        //Liste Par Review des Produits
+        $productByReview = $this->entityManager->getRepository(Product::class)->findProductsByRate();
+
+
         return $this->render('details/index.html.twig', [
             'product' => $product,
             'listeReview' => $listeReview,
             'liked' => $liked,
             'unliked' => $unliked,
+            'productByReview' => $productByReview,
         ]);
     }
 
