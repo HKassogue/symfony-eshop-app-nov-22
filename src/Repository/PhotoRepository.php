@@ -38,6 +38,7 @@ class PhotoRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    
 
 //    /**
 //     * @return Photo[] Returns an array of Photo objects

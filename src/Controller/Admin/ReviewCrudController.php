@@ -27,7 +27,7 @@ class ReviewCrudController extends AbstractCrudController
             TextEditorField::new('comment')->hideOnIndex(),
             TextField::new('name'),
             EmailField::new('email'),
-            AssociationField::new('product')->autocomplete(),
+            AssociationField::new('product'),
             DateTimeField::new('created_at')->hideOnForm(),
         ];
     }

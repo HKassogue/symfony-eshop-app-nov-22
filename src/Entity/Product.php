@@ -124,7 +124,7 @@ class Product
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreated_at(): ?\DateTimeImmutable
     {
         return $this->created_at;
     }
