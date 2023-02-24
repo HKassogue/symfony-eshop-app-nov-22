@@ -39,6 +39,20 @@ class ReviewRepository extends ServiceEntityRepository
         }
     }
 
+
+    /**
+     * @return float Returns an array of Product objects
+     */
+    public function getRate($productId): float
+    {
+        return $this->createQueryBuilder('r')
+            ->select('AVG(r.rate) as moyenne')
+            ->where('r.product = :productId')
+            ->setParameter('productId', $productId)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     //    /**
     //     * @return Review[] Returns an array of Review objects
     //     */

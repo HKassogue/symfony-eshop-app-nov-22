@@ -42,11 +42,23 @@
 					<h3>{{product.name}}</h3>
 					<div class="d-flex mb-3">
 						<div class="text-primary mr-2">
-							<small class="fas fa-star"></small>
-							<small class="fas fa-star"></small>
-							<small class="fas fa-star"></small>
-							<small class="fas fa-star-half-alt"></small>
-							<small class="far fa-star"></small>
+							{% if rate == 0 %}
+								<small class="far fa-star text-primary mr-1"></small>
+								<small class="far fa-star text-primary mr-1"></small>
+								<small class="far fa-star text-primary mr-1"></small>
+								<small class="far fa-star text-primary mr-1"></small>
+								<small class="far fa-star text-primary mr-1"></small>
+							{% else %}
+								{% for i in range(rate,1) %}
+									<small class="fa fa-star text-primary mr-1"></small>
+								{% endfor %}
+								{% if rate < 5 %}
+									{% for i in range(5-rate,1) %}
+										<small class="far fa-star text-primary mr-1"></small>
+									{% endfor %}
+								{% endif %}
+							{% endif %}
+
 						</div>
 						<small class="pt-1">({{product.getReviews()|length}}
 							Reviews)</small>
@@ -73,7 +85,7 @@
 						<button class="btn btn-primary px-3">
 							<i class="fa fa-shopping-cart mr-1"></i>
 							Add To
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																                            Cart</button>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                            Cart</button>
 					</div>
 					<div>
 						<h4>Liked :</h4>
@@ -233,12 +245,24 @@
 									</h6>
 								</div>
 								<div class="d-flex align-items-center justify-content-center mb-1">
-									<small class="fa fa-star text-primary mr-1"></small>
-									<small class="fa fa-star text-primary mr-1"></small>
-									<small class="fa fa-star text-primary mr-1"></small>
-									<small class="fa fa-star text-primary mr-1"></small>
-									<small class="fa fa-star text-primary mr-1"></small>
-									<small>(99)</small>
+									{% if produit.getMoyenneRate() ==0 %}
+										<small class="far fa-star text-primary mr-1"></small>
+										<small class="far fa-star text-primary mr-1"></small>
+										<small class="far fa-star text-primary mr-1"></small>
+										<small class="far fa-star text-primary mr-1"></small>
+										<small class="far fa-star text-primary mr-1"></small>
+									{% else %}
+										{% for i in range(produit.getMoyenneRate(),1) %}
+											<small class="fa fa-star text-primary mr-1"></small>
+										{% endfor %}
+										{% if produit.getMoyenneRate() < 5 %}
+											{% for i in range(5-produit.getMoyenneRate(),1) %}
+												<small class="far fa-star text-primary mr-1"></small>
+											{% endfor %}
+										{% endif %}
+									{% endif %}
+
+									<small>({{produit.getMoyenneRate()}})</small>
 								</div>
 							</div>
 						</div>

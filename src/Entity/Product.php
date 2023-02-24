@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use App\Repository\ReviewRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Persistence\ManagerRegistry;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -52,6 +55,7 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Review::class)]
     private Collection $reviews;
 
+    private $entityManager;
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -161,8 +165,7 @@ class Product
         $photos = $this->getPhotos();
         if ($photos->isEmpty()) {
             return 'default.png';
-        }
-        else return $photos[0]->getFile();
+        } else return $photos[0]->getFile();
     }
 
     public function addPhoto(Photo $photo): self
@@ -274,5 +277,18 @@ class Product
         }
 
         return $this;
+    }
+
+    public function getMoyenneRate()
+    {
+        if ($this->reviews->isEmpty()) {
+            return 0;
+        }
+        $sum = 0;
+        foreach ($this->reviews as $comment) {
+            $sum += $comment->getRate();
+        }
+
+        return intval(round($sum / count($this->reviews)));
     }
 }

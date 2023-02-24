@@ -62,6 +62,10 @@ class DetailsController extends AbstractController
         //Liste Par Review des Produits
         $productByReview = $this->entityManager->getRepository(Product::class)->findProductsByRate();
 
+        //Calculer la Moyenne des reviews par produit
+
+        $moyenne = $product->getMoyenneRate();
+
 
         return $this->render('details/index.html.twig', [
             'product' => $product,
@@ -69,6 +73,7 @@ class DetailsController extends AbstractController
             'liked' => $liked,
             'unliked' => $unliked,
             'productByReview' => $productByReview,
+            'rate' => intval($moyenne),
         ]);
     }
 
