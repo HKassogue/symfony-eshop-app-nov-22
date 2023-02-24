@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Like;
 use App\Entity\Product;
 use App\Entity\Review;
 use Doctrine\ORM\EntityManagerInterface;
@@ -45,9 +46,44 @@ class DetailsController extends AbstractController
             ]);
         }
 
+        //Lister les likes
+        $likeliste = $this->entityManager->getRepository(Like::class)->findByProduct($product);
+        $liked = 0;
+        $unliked = 0;
+
+        foreach ($likeliste as $l) {
+            if ($l->isLiked() == true) {
+                $liked = $liked + 1;
+            } else {
+                $unliked = $unliked + 1;
+            }
+        }
+
         return $this->render('details/index.html.twig', [
             'product' => $product,
             'listeReview' => $listeReview,
+            'liked' => $liked,
+            'unliked' => $unliked,
+        ]);
+    }
+
+    #[Route('/detail/{slug}/{liked}', name: 'detailLike')]
+    public function like($liked, $slug): Response
+    {
+        $product = $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
+
+        $like = new Like();
+        $like->setEmail("bassirou@gmail.com");
+        $like->setCreatedAt(new \DateTimeImmutable());
+        $like->setProduct($product);
+        if ($liked == 'liked') {
+            $like->setLiked(true);
+        } else {
+            $like->setLiked(false);
+        }
+        $this->entityManager->getRepository(Like::class)->save($like, true);
+        return $this->redirectToRoute('app_details', [
+            'slug' => $slug,
         ]);
     }
 }
