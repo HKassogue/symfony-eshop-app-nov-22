@@ -70,7 +70,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                         <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="/upload/images/products/{{product.file}}" alt="">
+                                <img class="img-fluid w-100" src="/upload/images/products/{{product.product.getPhoto}}" alt="">
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -81,14 +81,14 @@
                               <div class="text-center py-4">
                                 <a class="h6 text-decoration-none text-truncate" href="">{{product.product.name}}</a>
                                 <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>{{(product.product.price/100)|number_format('0', ',', ' ') }} Franc</h5>
+                                    <h5>{{product.product.price|number_format('0', ',', ' ') }} Franc</h5>
                                 </div>
                                 <div>
                                     <small>{{product.likes}} j'aime(s)</small>
                                     <br>
                                     <small>{{product.comment}} Comentaire(s)</small>
                                     <br>
-                                    <small>Créé le {{product.product.created_at|date('d/m/Y à H:i')}}</small>
+                                    <small>Créé le {{product.product.getCreatedAt|date('d/m/Y à H:i')}}</small>
                                 </div>
                             </div>
                         </div>

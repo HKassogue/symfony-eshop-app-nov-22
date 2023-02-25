@@ -51,19 +51,18 @@ class ProductRepository extends ServiceEntityRepository
        $max = $filtre->max;
         $query = $this
         ->createQueryBuilder('p')
-        ->select('p as product','ph.file','COUNT(l.id) as likes, COUNT(n.id) as comment')
-        ->leftJoin('p.photos','ph')
+        ->select('p as product','COUNT(l.id) as likes, COUNT(n.id) as comment')
         ->leftJoin('p.likes','l')
         ->leftJoin('p.reviews','n')
         ->groupBy('p.id');
        if(!empty($min)){
             $query = $query
-            ->andWhere('(p.price/100)>=:min')
+            ->andWhere('p.price>=:min')
             ->setParameter('min',$min);
         }
         if(!empty($max)){
             $query = $query
-            ->andWhere('(p.price/100)<=:max')
+            ->andWhere('p.price<=:max')
             ->setParameter('max',$max);
         }
         
