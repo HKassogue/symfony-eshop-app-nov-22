@@ -23,7 +23,7 @@ class LikeCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             BooleanField::new('liked'),
             EmailField::new('email'),
-            AssociationField::new('product'),
+            AssociationField::new('product')->autocomplete(),
             DateTimeField::new('created_at')->hideOnForm()
         ];
     }
