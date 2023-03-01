@@ -111,7 +111,7 @@
         <div class="row px-xl-5 pb-3">
             {% for category in categories.get %}
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="">
+                    <a class="text-decoration-none" href="{{path('app_shop')}}">
                         <div class="cat-item d-flex align-items-center mb-4">
                             <div class="overflow-hidden" style="width: 100px; height: 100px;">
                                 <img class="img-fluid" src="/upload/images/categories/{{category.photo ? category.photo : 'ac1.jpeg'}}" alt="{{category.name}}">
@@ -130,6 +130,9 @@
     {% endblock %}
 
     <!-- Products Start -->
+        
+         <!-- Shop Product End -->
+    </div>
     <div class="container-fluid pt-5 pb-3">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Recent Products</span></h2>
         <div class="row px-xl-5">
