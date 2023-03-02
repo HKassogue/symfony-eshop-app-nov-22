@@ -13,6 +13,7 @@ class ShopController extends AbstractController
     {
         return $this->render('shop/index.html.twig', [
             'controller_name' => 'ShopController',
+            
         ]);
     }
 }
