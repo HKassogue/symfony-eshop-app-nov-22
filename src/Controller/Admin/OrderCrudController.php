@@ -22,9 +22,9 @@ class OrderCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('reference'),
-            DateTimeField::new('created_at'),
-            AssociationField::new('coupon'),
-            AssociationField::new('customer'),
+            AssociationField::new('customer')->autocomplete(),
+            AssociationField::new('coupon')->autocomplete(),
+            DateTimeField::new('created_at')
         ];
     }
     

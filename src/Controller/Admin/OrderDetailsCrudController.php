@@ -20,9 +20,9 @@ class OrderDetailsCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
-            AssociationField::new('order_'),
-            AssociationField::new('product'),
+            IdField::new('id')->hideOnform(),
+            AssociationField::new('order_')->autocomplete(),
+            AssociationField::new('product')->autocomplete(),
             IntegerField::new('quantity'),
             MoneyField::new('price')->setCurrency('XOF'),
         ];

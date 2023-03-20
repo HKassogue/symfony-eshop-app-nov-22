@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -47,15 +48,16 @@ class ProductCrudController extends AbstractCrudController
             TextField::new('name'),
             SlugField::new('slug')->setTargetFieldName('name')->hideOnIndex(),  
             MoneyField::new('price')->setCurrency('XOF'),
-            AssociationField::new('category'),
-            //->setQueryBuilder(function (QueryBuilder $queryBuilder){
-               //  $queryBuilder->where('entity.active = true');
-            //})->autocomplete(), 
+            AssociationField::new('category')->setQueryBuilder(function (QueryBuilder $queryBuilder){
+                 $queryBuilder->where('entity.active = true');
+            })->autocomplete(), 
             IntegerField::new('stock'),
             BooleanField::new('active'),
             TextareaField::new('description')->hideOnIndex(),
             TextEditorField::new('details')->hideOnIndex(),
             DateTimeField::new('created_at')->hideWhenCreating(),
+            CollectionField::new('photos')->allowAdd(true)->allowDelete(true)
+
         ];
     }
 
