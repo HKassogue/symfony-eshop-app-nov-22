@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Controller;
-use App\Entity\Product;
+use App\Data\Filtre;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Product;
+use App\Form\FiltreType;
+use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class ShopController extends AbstractController
 
@@ -18,11 +21,18 @@ class ShopController extends AbstractController
     }
     
     #[Route('/shop', name: 'app_shop')]
-    public function index()
+    public function index(HttpFoundationRequest $request): Response
     {
-        $products = $this->entityManager->getRepository(Product::class)->findAll();
+        $filtre = new Filtre();
+        $filtre->page=$request->get('page',1);
+        $form = $this->createForm(FiltreType::class,$filtre);
+        $form->handleRequest($request);
+        $products = $this->entityManager->getRepository(Product::class)->recherche($filtre);
+       // dd($products);
+       
         return $this->render('shop/index.html.twig', [
             'products' => $products,
+           'form' => $form->createView()
         ]);
     }
 

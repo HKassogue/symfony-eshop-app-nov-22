@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\Data\Filtre;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Product>
@@ -16,9 +19,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProductRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $paginator;
+    public function __construct(ManagerRegistry $registry,PaginatorInterface $paginator)
     {
         parent::__construct($registry, Product::class);
+        $this->paginator=$paginator;
     }
 
     public function save(Product $entity, bool $flush = false): void
@@ -37,6 +42,38 @@ class ProductRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+     /**
+     * @return PaginationInterface
+     */
+    public function recherche(Filtre $filtre): PaginationInterface{
+       $min = $filtre->min;
+       $max = $filtre->max;
+        $query = $this
+        ->createQueryBuilder('p')
+        ->select('p as product','COUNT(l.id) as likes, COUNT(n.id) as comment')
+        ->leftJoin('p.likes','l')
+        ->leftJoin('p.reviews','n')
+        ->groupBy('p.id');
+       if(!empty($min)){
+            $query = $query
+            ->andWhere('p.price>=:min')
+            ->setParameter('min',$min);
+        }
+        if(!empty($max)){
+            $query = $query
+            ->andWhere('p.price<=:max')
+            ->setParameter('max',$max);
+        }
+        
+        
+        $query = $query->getQuery();
+        return $this->paginator->paginate(
+                $query,
+                $filtre->page,
+                6
+        );
+
     }
 
     /**
