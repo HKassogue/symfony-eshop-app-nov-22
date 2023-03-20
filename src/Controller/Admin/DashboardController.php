@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Alert;
 use App\Entity\Arrival;
 use App\Entity\ArrivalDetails;
+use App\Entity\Carrier;
 use App\Entity\Category;
 use App\Entity\Coupon;
 use App\Entity\CouponType;
@@ -77,6 +78,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Arrivals', 'fas fa-list', Arrival::class);
         yield MenuItem::linkToCrud('Arrivals details', 'fas fa-list', ArrivalDetails::class);
 
+        //yield MenuItem::linkToCrud('Carriers', 'fas fa-list', Carrier::class);
         yield MenuItem::linkToCrud('Orders', 'fas fa-list', Order::class);
         yield MenuItem::linkToCrud('Order details', 'fas fa-list', OrderDetails::class);
         yield MenuItem::linkToCrud('Payments', 'fas fa-list', Payment::class);

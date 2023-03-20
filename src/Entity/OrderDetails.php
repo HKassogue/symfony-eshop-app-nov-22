@@ -16,14 +16,17 @@ class OrderDetails
     #[ORM\ManyToOne(inversedBy: 'orderDetails')]
     private ?Order $order_ = null;
 
-    #[ORM\ManyToOne]
-    private ?Product $product = null;
+     #[ORM\ManyToOne]
+    private ?Product $product = null; 
 
     #[ORM\Column]
     private ?int $quantity = null;
 
     #[ORM\Column]
     private ?float $price = null;
+
+    // #[ORM\Column]
+    // private ?float $total = null;
 
     public function getId(): ?int
     {
@@ -42,7 +45,7 @@ class OrderDetails
         return $this;
     }
 
-    public function getProduct(): ?Product
+     public function getProduct(): ?Product
     {
         return $this->product;
     }
@@ -52,7 +55,7 @@ class OrderDetails
         $this->product = $product;
 
         return $this;
-    }
+    } 
 
     public function getQuantity(): ?int
     {
@@ -77,4 +80,16 @@ class OrderDetails
 
         return $this;
     }
+
+    // public function getTotal(): ?float
+    // {
+    //     return $this->total;
+    // }
+
+    // public function setTotal(float $total): self
+    // {
+    //     $this->total = $total;
+
+    //     return $this;
+    // }
 }

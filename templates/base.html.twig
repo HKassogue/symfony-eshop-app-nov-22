@@ -26,6 +26,8 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+    {% block javascript %}
+    {% endblock %}
 </head>
 
 <body onload="Notation();">
@@ -312,5 +314,6 @@
     <!-- Template Javascript -->
     <script src="{{asset('assets/js/main.js')}}"></script>
 </body>
-
+{% block script %}
+{% endblock %}
 </html>

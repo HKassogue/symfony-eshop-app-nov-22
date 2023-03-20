@@ -43,8 +43,8 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Photo::class)]
     private Collection $photos;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $details = null;
+     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $details = null; 
 
     #[ORM\Column(nullable: true)]
     private ?bool $active = null;
@@ -195,7 +195,7 @@ class Product
         return $this->name;
     }
 
-    public function getDetails(): ?string
+     public function getDetails(): ?string
     {
         return $this->details;
     }
@@ -205,7 +205,7 @@ class Product
         $this->details = $details;
 
         return $this;
-    }
+    } 
 
     public function isActive(): ?bool
     {

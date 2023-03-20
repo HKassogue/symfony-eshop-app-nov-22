@@ -22,20 +22,38 @@ class Delivery
     #[ORM\Column(length: 50)]
     private ?string $city = null;
 
-    #[ORM\Column]
-    private ?float $price = null;
+   /*  #[ORM\Column]
+    private ?float $price = null; */
 
     #[ORM\Column(length: 25)]
     private ?string $state = null;
 
-    #[ORM\ManyToOne(inversedBy: 'deliveries')]
-    private ?Order $order_ = null;
+     #[ORM\ManyToOne(inversedBy: 'deliveries')]
+    private ?Order $order_ = null; 
 
     #[ORM\ManyToOne]
     private ?User $delivered_by = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $delivered_at = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $address2 = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $email = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $tel = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $country = null;
 
     public function getId(): ?int
     {
@@ -78,7 +96,7 @@ class Delivery
         return $this;
     }
 
-    public function getPrice(): ?float
+    /* public function getPrice(): ?float
     {
         return $this->price;
     }
@@ -88,7 +106,7 @@ class Delivery
         $this->price = $price;
 
         return $this;
-    }
+    } */
 
     public function getState(): ?string
     {
@@ -113,7 +131,7 @@ class Delivery
 
         return $this;
     }
-
+ 
     public function getDeliveredBy(): ?User
     {
         return $this->delivered_by;
@@ -137,4 +155,77 @@ class Delivery
 
         return $this;
     }
+
+    public function getAddress2(): ?string
+    {
+        return $this->address2;
+    }
+
+    public function setAddress2(?string $address2): self
+    {
+        $this->address2 = $address2;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(string $tel): self
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+    
 }
