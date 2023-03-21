@@ -27,6 +27,7 @@ class ShopController extends AbstractController
     public function index(Request $request, $cat): Response
     {
         $q = $request->query->get('q', '');
+        /* 
         if(!empty($q)){
             if($cat == 'all') {
                 $products = $this->entityManager->getRepository(Product::class)->findBy([
@@ -55,6 +56,10 @@ class ShopController extends AbstractController
                 ]);
             }
         } 
+        /*/
+        $category = $cat != 'all' ? $this -> entityManager->getRepository(Category::class)->findBySlug($cat) : null;
+        $products = $this->entityManager->getRepository(Product::class)->search($category, $q);
+        //*/
         return $this->render('shop/index.html.twig', [
             'products' => $products,
         ]);
