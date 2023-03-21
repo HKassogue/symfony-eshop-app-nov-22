@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class ShopController extends AbstractController
 {
@@ -21,29 +22,41 @@ class ShopController extends AbstractController
     {
         $this->entityManager= $entityManager;
     }
-    #[Route('/shop', name: 'app_shop')]
 
-    public function index()
+    #[Route('/shop/{cat}', defaults: ['cat'=>'all'], name: 'app_shop')]
+    public function index(Request $request, $cat): Response
     {
-        $shop = $this -> entityManager->getRepository(Product::class)->findAll();
-        $filtre = new filtre();
-        $form  = $this -> createForm(FiltreType::class, $filtre);
+        $q = $request->query->get('q', '');
+        if(!empty($q)){
+            if($cat == 'all') {
+                $products = $this->entityManager->getRepository(Product::class)->findBy([
+                    'active' => true,
+                    'name' => '%'.$q.'%'
+                ]);
+            }
+            else {
+                $category = $this -> entityManager->getRepository(Category::class)->findBySlug($cat);
+                $products = $this->entityManager->getRepository(Product::class)->findBy([
+                    'active' => true,
+                    'category' => $category,
+                    'name' => '%'.$q.'%'
+                ]);
+            }
+        } 
+        else {
+            if($cat == 'all') {
+                $products = $this->entityManager->getRepository(Product::class)->findByActive(true);
+            }
+            else {
+                $category = $this -> entityManager->getRepository(Category::class)->findBySlug($cat);
+                $products = $this->entityManager->getRepository(Product::class)->findBy([
+                    'active' => true,
+                    'category' => $category
+                ]);
+            }
+        } 
         return $this->render('shop/index.html.twig', [
-            'shop' => $shop,
-            'form' => $form ->createView()
-        ]);
-    }
-    #[Route('/shop/{slug}', name: 'app_shop2')]
-
-    public function index1($slug)
-    {
-        $category = $this -> entityManager->getRepository(Category::class)->findBySlug($slug);
-        $shop = $this -> entityManager->getRepository(Product::class)->findByCategory($category);
-        $filtre = new filtre();
-        $form  = $this -> createForm(FiltreType::class, $filtre);
-        return $this->render('shop/slug.html.twig', [
-            'shop' => $shop,
-            'form' => $form ->createView()
+            'products' => $products,
         ]);
     }
 }
