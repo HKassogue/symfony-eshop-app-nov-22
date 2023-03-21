@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "36f7205ad63d94b2b76380f95719afa4",
+    "content-hash": "ed48d245ef0882a982d9ac3fb1d1a9c0",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1481,7 +1481,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-20T19:01:40+00:00"
+            "time": "2022-11-29T19:44:16+00:00"
         },
         {
             "name": "egulias/email-validator",

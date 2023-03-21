@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Arrival;
+use App\Entity\ArrivalDetails;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Classe\Mail;
@@ -24,9 +26,15 @@ class HomeController extends AbstractController
     {
         // $mail = new Mail();
         // $mail->send('cheicknadiarra378@gmail.com', 'cheickna Diarra', 'premier mail', 'bonjour cheickna j espere que vous allez bien');
-        $products = $this->entityManager->getRepository(Product::class)->findAll();
+        $products = $this->entityManager->getRepository(Product::class)->findByActive(true);
+        $arrivals = $this->entityManager->getRepository(Arrival::class)->findByClosed(false);
+        $arrivals_details = [];
+        foreach($arrivals as $arrival) {
+            $arrivals_details += $this->entityManager->getRepository(ArrivalDetails::class)->findByArrival($arrival);
+        }
         return $this->render('home/index.html.twig', [
             'products' => $products,
+            'arrivals_details' => $arrivals_details
         ]);
     }
 }

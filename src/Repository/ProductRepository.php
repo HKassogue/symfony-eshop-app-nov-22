@@ -75,6 +75,28 @@ class ProductRepository extends ServiceEntityRepository
         );
 
     }
+   /**
+    * @return Product[] Returns an array of Product objects
+    */
+   public function search($cat, $q): array
+   {
+        $query = $this->createQueryBuilder('p')
+            ->andWhere('p.active = TRUE')
+        ;
+        if($cat != null) {
+            $query = $query
+                ->andWhere('p.category = :cat')
+                ->setParameter('cat', $cat)
+            ;
+        }
+        if($q != '') {
+            $query = $query
+                ->andWhere('p.name LIKE :q')
+                ->setParameter('q', '%'.$q.'%')
+            ;
+        }
+        return $query->getQuery()->getResult();
+   }
 
     /**
      * @return Product[] Returns an array of Product objects

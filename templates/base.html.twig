@@ -102,13 +102,13 @@
                 </a>
             </div>
             <div class="col-lg-4 col-6 text-left">
-                <form action="">
+                <form action="{{ path('app_shop') }}" method="get">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products">
+                        <input type="text" class="form-control" placeholder="Search for products" name="q" required>
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
+                            <button class="input-group-text bg-transparent text-primary" type="submit">
                                 <i class="fa fa-search"></i>
-                            </span>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -136,15 +136,15 @@
                             {% set subcategories = category.getSubcategories() %}
                             {% if subcategories is not empty %}
                                 <div class="nav-item dropdown dropright">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{category.name}} <i class="fa fa-angle-right float-right mt-1"></i></a>
+                                    <a href="{{path('app_shop', {'cat': category.slug})}}" class="nav-link dropdown-toggle" data-toggle="dropdown">{{category.name}} <i class="fa fa-angle-right float-right mt-1"></i></a>
                                     <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
                                         {% for subcategory in subcategories %}
-                                            <a href="" class="dropdown-item">{{subcategory.name}}</a>
+                                            <a href="{{path('app_shop', {'cat': subcategory.slug})}}" class="dropdown-item">{{subcategory.name}}</a>
                                         {% endfor %}
                                     </div>
                                 </div>
                             {% elseif category.getParent() is null %}
-                                <a href="" class="nav-item nav-link">{{category.name}}</a>
+                                <a href="{{path('app_shop', {'cat': category.slug})}}" class="nav-item nav-link">{{category.name}}</a>
                             {% endif %}
                         {% endfor %}
                     </div>

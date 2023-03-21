@@ -26,6 +26,6 @@ class CategoriesExtension extends AbstractExtension
     public function get() 
     {
         //return $this->entityManager->getRepository(Category::class)->findAll();
-        return $this->entityManager->getRepository(Category::class)->findBy([], ['name' => 'ASC']);
+        return $this->entityManager->getRepository(Category::class)->findBy(['active' => true], ['name' => 'ASC']);
     }
 }
