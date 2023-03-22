@@ -5,7 +5,7 @@ class Filtre{
     /**
      * @var int
      */
-    public $page =1;
+    public $page = 1;
      /**
      * @var null|integer
      */

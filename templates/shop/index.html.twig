@@ -25,12 +25,10 @@
                
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filtre par prix</span></h5>
                 <div class="bg-light p-4 mb-30">
-                    <form>
-                        <div class="custom-control custom-checkbox col align-items-center justify-content-between mb-3">
-                            <p>Entrez les Prix min et max </p>
-                            <span class="badge border font-weight-normal"> {{form(form)}}</span>
-                        </div>
-                    </form>
+                    <div class="custom-control custom-checkbox col align-items-center justify-content-between mb-3">
+                        <p>Enter min and/or max prices </p>
+                        <span class="badge border font-weight-normal"> {{form(form)}}</span>
+                    </div>
                 </div>
                 <!-- Price End -->  
             </div>
@@ -47,33 +45,33 @@
                             </div>
                             <div class="ml-2">
                                 <div class="btn-group text-secondary">
-                                    {{knp_pagination_sortable(products,'Aimés','likes')}}
+                                    {{knp_pagination_sortable(results,'Aimés','likes')}}
                                 </div>
                                 <div class="btn-group ml-2 text-secondary">
-                                    {{knp_pagination_sortable(products,'Date','p.created_at')}}
+                                    {{knp_pagination_sortable(results,'Date','p.created_at')}}
                                 </div>
                                  <div class="btn-group ml-2 text-secondary">
-                                    {{knp_pagination_sortable(products,'Commentés','comment')}}
+                                    {{knp_pagination_sortable(results,'Commentés','reviews')}}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {% for product in products %}
+                    {% for item in results %}
                     <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                         <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
-                                 <img class="img-fluid w-100" src="/upload/images/products/{{product.product.getPhoto()}}" alt="{{product.product.name}}">
+                                 <img class="img-fluid w-100" src="/upload/images/products/{{item.product.getPhoto()}}" alt="{{item.product.name}}">
                                 <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href="{{ path('add_to_cart', { 'id': product.product.id }) }}"><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="{{ path('add_to_cart', { 'id': item.product.id }) }}"><i class="fa fa-shopping-cart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="{{ path('app_details', { 'slug': product.product.slug }) }}">{{product.product.name}}</a>
+                                <a class="h6 text-decoration-none text-truncate" href="{{ path('app_details', { 'slug': item.product.slug }) }}">{{item.product.name}}</a>
                                 <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>{{product.product.price|number_format('0', ',', ' ')}} F</h5><h6 class="text-muted ml-2"><del>{{product.product.price * 1.1}} F</del></h6>
+                                    <h5>{{item.product.price|number_format('0', ',', ' ')}} F</h5><h6 class="text-muted ml-2"><del>{{(item.product.price * 1.1)|number_format('0', ',', ' ')}} F</del></h6>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center mb-1">
                                     <small class="fa fa-star text-primary mr-1"></small>
@@ -81,7 +79,7 @@
                                     <small class="fa fa-star text-primary mr-1"></small>
                                     <small class="fa fa-star text-primary mr-1"></small>
                                     <small class="fa fa-star text-primary mr-1"></small>
-                                    <small>({{product.product.stock}})</small>
+                                    <small>({{item.product.stock}})</small>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +88,7 @@
                     <div class="col-12">
                         <nav>
                           <ul class="pagination justify-content-center">
-                              <li>  {{knp_pagination_render(products)}} </li>
+                              <li>  {{knp_pagination_render(results)}} </li>
                           </ul>
                         </nav>
                     </div>

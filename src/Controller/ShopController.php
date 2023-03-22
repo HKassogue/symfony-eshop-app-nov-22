@@ -27,14 +27,15 @@ class ShopController extends AbstractController
         $q = $request->query->get('q', '');
         $category = $cat != 'all' ? $this -> entityManager->getRepository(Category::class)->findBySlug($cat) : null;
         $filtre = new Filtre();
-        $filtre->page=$request->get('page',1);
-        $products = $this->entityManager->getRepository(Product::class)->search($category, $q);
-        $products = $this->entityManager->getRepository(Product::class)->recherche($filtre);
-        // dd($products);
+        $filtre->page = $request->get('page', 1);
         $form = $this->createForm(FiltreType::class, $filtre);
         $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $filtre = $form->getData();
+        }
+        $results = $this->entityManager->getRepository(Product::class)->search($category, $q, $filtre);
         return $this->render('shop/index.html.twig', [
-            'products' => $products,
+            'results' => $results,
             'form' => $form->createView()
         ]);
     }

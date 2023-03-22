@@ -47,7 +47,7 @@ class ProductCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
             SlugField::new('slug')->setTargetFieldName('name')->hideOnIndex(),  
-            MoneyField::new('price')->setCurrency('XOF'),
+            MoneyField::new('price')->setCurrency('XOF')->setStoredAsCents(false),
             AssociationField::new('category')->setQueryBuilder(function (QueryBuilder $queryBuilder){
                  $queryBuilder->where('entity.active = true');
             }), 
@@ -56,7 +56,7 @@ class ProductCrudController extends AbstractCrudController
             TextareaField::new('description')->hideOnIndex(),
             TextEditorField::new('details')->hideOnIndex(),
             DateTimeField::new('created_at')->hideWhenCreating(),
-            CollectionField::new('photos')->allowAdd(true)->allowDelete(true)
+            CollectionField::new('photos')->allowAdd(true)->allowDelete(true)->hideOnIndex(),
 
         ];
     }

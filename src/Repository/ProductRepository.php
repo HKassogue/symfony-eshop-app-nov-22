@@ -20,7 +20,7 @@ use Knp\Component\Pager\PaginatorInterface;
 class ProductRepository extends ServiceEntityRepository
 {
     private $paginator;
-    public function __construct(ManagerRegistry $registry,PaginatorInterface $paginator)
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Product::class);
         $this->paginator=$paginator;
@@ -43,45 +43,18 @@ class ProductRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-     /**
+
+   /**
      * @return PaginationInterface
      */
-    public function recherche(Filtre $filtre): PaginationInterface{
-       $min = $filtre->min;
-       $max = $filtre->max;
-        $query = $this
-        ->createQueryBuilder('p')
-        ->select('p as product','COUNT(l.id) as likes, COUNT(n.id) as comment')
-        ->leftJoin('p.likes','l')
-        ->leftJoin('p.reviews','n')
-        ->groupBy('p.id');
-       if(!empty($min)){
-            $query = $query
-            ->andWhere('p.price>=:min')
-            ->setParameter('min',$min);
-        }
-        if(!empty($max)){
-            $query = $query
-            ->andWhere('p.price<=:max')
-            ->setParameter('max',$max);
-        }
-        
-        
-        $query = $query->getQuery();
-        return $this->paginator->paginate(
-                $query,
-                $filtre->page,
-                6
-        );
-
-    }
-   /**
-    * @return Product[] Returns an array of Product objects
-    */
-   public function search($cat, $q): array
+   public function search($cat, $q, Filtre $filtre): PaginationInterface
    {
         $query = $this->createQueryBuilder('p')
             ->andWhere('p.active = TRUE')
+            ->select('p as product', 'COUNT(l.id) as likes, AVG(r.rate) as reviews')
+            ->leftJoin('p.likes', 'l')
+            ->leftJoin('p.reviews', 'r')
+            ->groupBy('p.id');
         ;
         if($cat != null) {
             $query = $query
@@ -95,7 +68,26 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('q', '%'.$q.'%')
             ;
         }
-        return $query->getQuery()->getResult();
+        if($filtre != null) {
+            $min = $filtre->min;
+            $max = $filtre->max;
+            if(!empty($min)){
+                $query = $query
+                    ->andWhere('p.price >= :min')
+                    ->setParameter('min', $min);
+            }
+            if(!empty($max)){
+                $query = $query
+                    ->andWhere('p.price <= :max')
+                    ->setParameter('max', $max);
+            }
+        }
+        $query = $query->getQuery();
+        return $this->paginator->paginate(
+            $query,
+            $filtre->page,
+            6
+        );
    }
 
     /**
@@ -108,7 +100,6 @@ class ProductRepository extends ServiceEntityRepository
             ->leftJoin('p.reviews', 'r')
             ->addSelect('AVG(r.rate) as HIDDEN moyenne')
             ->orderBy('moyenne', 'DESC')
-            ->setMaxResults(10)
             ->groupBy('p.id')
             ->getQuery()
             ->getResult();
