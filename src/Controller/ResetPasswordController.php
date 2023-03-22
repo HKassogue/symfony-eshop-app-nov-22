@@ -1,22 +1,15 @@
 <?php
 
 namespace App\Controller;
-// namespace App\Mail;
-use Symfony\Component\Validator\Constraints\DateTime;
 use App\Classe\Mail;
-// use App\Controller\UserPasswordInterface;
 use App\Entity\User;
-use Monolog\DateTimeImmutable;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Entity\ResetPassword;
 use App\Form\ResetPasswordType;
-use Symfony\Component\Form\FormTypeInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 

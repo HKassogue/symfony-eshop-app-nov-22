@@ -18,6 +18,7 @@ class CompteEditerController extends AbstractController
     public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
     }
+
     #[Route('/compte/editer', name: 'app_compte_editer')]
     public function index(Request $request, UserPasswordHasherInterface $encoder, ManagerRegistry $registry): Response
     {
@@ -33,7 +34,6 @@ class CompteEditerController extends AbstractController
         }
         return $this->render('account/editer.html.twig', [
             'form' => $form->createView(),
-            
         ]);
     }
 }

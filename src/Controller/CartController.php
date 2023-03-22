@@ -7,13 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Product;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 
 class CartController extends AbstractController
 {
-
-  
 
     #[Route('/panier', name: 'app_cart')]
     public function index(Cart $cart)
