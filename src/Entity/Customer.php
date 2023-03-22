@@ -21,6 +21,12 @@ class Customer
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $city = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $country = null;
+
+    #[ORM\Column(length: 10)]
+    private ?string $zipcode = null;
+
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $tel = null;
 
@@ -30,9 +36,6 @@ class Customer
 
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Order::class)]
     private Collection $orders;
-
-    /*#[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $created_at = null;*/
 
     public function __construct()
     {
@@ -64,6 +67,30 @@ class Customer
     public function setCity(?string $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getZipcode(): ?string
+    {
+        return $this->zipcode;
+    }
+
+    public function setZipcode(string $zipcode): self
+    {
+        $this->zipcode = $zipcode;
 
         return $this;
     }
@@ -121,17 +148,5 @@ class Customer
 
         return $this;
     }
-
-    /*public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(?\DateTimeImmutable $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }*/
 
 }

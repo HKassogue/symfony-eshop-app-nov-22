@@ -25,9 +25,6 @@ class OrderDetails
     #[ORM\Column]
     private ?float $price = null;
 
-    // #[ORM\Column]
-    // private ?float $total = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -80,16 +77,5 @@ class OrderDetails
 
         return $this;
     }
-
-    // public function getTotal(): ?float
-    // {
-    //     return $this->total;
-    // }
-
-    // public function setTotal(float $total): self
-    // {
-    //     $this->total = $total;
-
-    //     return $this;
-    // }
+    
 }

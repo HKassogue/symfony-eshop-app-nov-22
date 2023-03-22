@@ -22,8 +22,8 @@ class Delivery
     #[ORM\Column(length: 50)]
     private ?string $city = null;
 
-   /*  #[ORM\Column]
-    private ?float $price = null; */
+    #[ORM\Column]
+    private ?float $price = null;
 
     #[ORM\Column(length: 25)]
     private ?string $state = null;
@@ -40,19 +40,19 @@ class Delivery
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $address2 = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     private ?string $lastname = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 180, nullable: true)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 30)]
     private ?string $tel = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     private ?string $country = null;
 
     public function getId(): ?int
@@ -96,7 +96,7 @@ class Delivery
         return $this;
     }
 
-    /* public function getPrice(): ?float
+    public function getPrice(): ?float
     {
         return $this->price;
     }
@@ -106,7 +106,7 @@ class Delivery
         $this->price = $price;
 
         return $this;
-    } */
+    }
 
     public function getState(): ?string
     {

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230227230349 extends AbstractMigration
+final class Version20221227152759 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,16 +20,12 @@ final class Version20230227230349 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE delivery ADD user_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE delivery ADD CONSTRAINT FK_3781EC10A76ED395 FOREIGN KEY (user_id) REFERENCES `user` (id)');
-        $this->addSql('CREATE INDEX IDX_3781EC10A76ED395 ON delivery (user_id)');
+        $this->addSql('ALTER TABLE user ADD avatar VARCHAR(50) DEFAULT NULL, ADD active TINYINT(1) DEFAULT NULL, ADD login_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\'');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE delivery DROP FOREIGN KEY FK_3781EC10A76ED395');
-        $this->addSql('DROP INDEX IDX_3781EC10A76ED395 ON delivery');
-        $this->addSql('ALTER TABLE delivery DROP user_id');
+        $this->addSql('ALTER TABLE `user` DROP avatar, DROP active, DROP login_at');
     }
 }

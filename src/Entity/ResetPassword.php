@@ -3,7 +3,6 @@
 namespace App\Entity;
 use Symfony\Component\Validator\Constraints\DateTime;
 use App\Repository\ResetPasswordRepository;
-use App\Entity\ResetPassword;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Form\FormTypeInterface;
 
